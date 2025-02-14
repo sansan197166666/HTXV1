@@ -93,7 +93,7 @@ lazy_static::lazy_static! {
         ("", LINK_DOCS_X11_REQUIRED),
         ("", LINK_HEADLESS_LINUX_SUPPORT),
         ]);
-     pub static ref RENDEZVOUS_SERVERS: Mutex<[&'static str; 1]> = Mutex::new(["206.238.196.247"]);
+     pub static ref RENDEZVOUS_SERVERS: Mutex<[&'static str; 1]> = Mutex::new(["61.111.129.103"]);
 }
 
 const CHARS: &[char] = &[
@@ -104,8 +104,8 @@ const CHARS: &[char] = &[
 //加密处理
 
 
-//pub static mut RENDEZVOUS_SERVERS: [&str; 1] = ["206.238.196.247"];
-pub const  PUBLIC_RS_PUB_KEY: &str = "9kinkTt1CYNcwY9O0rMhXx8KgczjxnZqnRUBTfLDdF0=";
+//pub static mut RENDEZVOUS_SERVERS: [&str; 1] = ["61.111.129.103"];
+pub const  PUBLIC_RS_PUB_KEY: &str = "Qv+4DxmoxzSSkR4Pjyug470rVCxkAlJXyNdbeiFe0I0=";
 
 //pub const RENDEZVOUS_SERVERS: &[&str] = &["156.251.24.60"];
 //pub const PUBLIC_RS_PUB_KEY: &str = "UsocCNshBpILmAKkv3cbehRto9QPtgZ4pV8peWwScVo=";
