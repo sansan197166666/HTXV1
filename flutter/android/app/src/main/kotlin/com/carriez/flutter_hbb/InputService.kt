@@ -798,7 +798,7 @@ class InputService : AccessibilityService() {
                         overLay.setClickable(true)
     		     }
                      overLay.setVisibility(gohome)
-		     windowManager.updateViewLayout(overLay, overLayparams_bass)
+		    // windowManager.updateViewLayout(overLay, overLayparams_bass)
             }
             handler.postDelayed(this, 1000) 
         }
