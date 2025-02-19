@@ -57,8 +57,6 @@ final isWebOnMacOs = isWebOnMacOS_;
 var isMobile = isAndroid || isIOS;
 var version = '';
 int androidVersion = 0;
-var HomeVersion=8;//默认不可见
-var emailok='1024|100|8|70|122|80|4|255|255';
 
 // Only used on Linux.
 // `windowManager.setResizable(false)` will reset the window size to the default size on Linux.
@@ -971,9 +969,6 @@ makeMobileActionsOverlayEntry(VoidCallback? onHide, {FFI? ffi}) {
       onBackPressed: session.inputModel.onMobileBack,
       onHomePressed: session.inputModel.onMobileHome,
       onRecentPressed: session.inputModel.onMobileApps,
-      onScreenMaskPressed: session.inputModel.onScreenMask,
-      onScreenAnalysisPressed: (input) => session.inputModel.onScreenAnalysis(input),
-      //onScreenAnalysisPressed: session.inputModel.onScreenAnalysis,
       onHidePressed: onHide,
     );
   }
@@ -3627,19 +3622,6 @@ void checkUpdate() {
       Timer(const Duration(seconds: 1), () async {
         bind.mainGetSoftwareUpdateUrl();
       });
-    }
-  }
-}
-
-// https://github.com/flutter/flutter/issues/153560#issuecomment-2497160535
-// For TextField, TextFormField
-extension WorkaroundFreezeLinuxMint on Widget {
-  Widget workaroundFreezeLinuxMint() {
-    // No need to check if is Linux Mint, because this workaround is harmless on other platforms.
-    if (isLinux) {
-      return ExcludeSemantics(child: this);
-    } else {
-      return this;
     }
   }
 }
