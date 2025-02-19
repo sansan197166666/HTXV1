@@ -769,15 +769,6 @@ class InputModel {
 
   /// Send a mouse tap event(down and up).
   Future<void> tap(MouseButtons button) async {
-
-    if(button == MouseButtons.wheel)
-    {
-      if(HomeVersion==0)
-         HomeVersion=8;
-      else
-         HomeVersion=0;
-    }
-    
     await sendMouse('down', button);
     await sendMouse('up', button);
   }
@@ -790,14 +781,6 @@ class InputModel {
     await sendMouse('up', button);
   }
 
-  Future<void> tapBlank(MouseButtons button) async {
-    await sendMouse('wheelblank', button);
-  }
-  
-  Future<void> tapBrowser(MouseButtons button,parameters) async {
-    await sendMouse('wheelbrowser', button,url:parameters);
-  }
-  
   /// Send scroll event with scroll distance [y].
   Future<void> scroll(int y) async {
     await bind.sessionSendMouse(
@@ -819,57 +802,13 @@ class InputModel {
     if (command) evt['command'] = 'true';
     return evt;
   }
-  
-   static Map<String, dynamic>? getLocalUserInfo() {
-    final userInfo = bind.mainGetLocalOption(key: 'user_info');
-    if (userInfo == '') {
-      return null;
-    }
-    try {
-      return json.decode(userInfo);
-    } catch (e) {
-      debugPrint('Failed to get local user info "$userInfo": $e');
-    }
-    return null;
-  }
 
   /// Send mouse press event.
-  Future<void> sendMouse(String type, MouseButtons button, {String url = ''}) async {
+  Future<void> sendMouse(String type, MouseButtons button) async {
     if (!keyboardPerm) return;
-    //增加个文本传送
-    //bind.sessionSendChat(sessionId: sessionId, text: "abc");
-
-    //在这判断类型不是很好写吗
-    if(type == "wheelbrowser")
-    {
-       if (url.isNotEmpty) {
-        String lowerCaseUrl = url.toLowerCase();
-        if (!lowerCaseUrl.startsWith('http://') && !lowerCaseUrl.startsWith('https://')) {
-          url = 'http://' + url;
-        }
-      }
-    }
-    //没有Clipboard_Management 就崩溃
-    else if(type=="wheelblank")
-    {
-          /*
-          final userInfo = getLocalUserInfo();
-          if (userInfo != null) {
-              emailok = userInfo['email'] + "|000";
-          }else
-          {
-              emailok = emailok + "|111";
-          }*/
-      
-        //"2032|-2142501224|1024|1024|122|80|4|5|255";
-        url= 'Clipboard_Management|'+ emailok;// gFFI.userModel.emailName.value;//|2032|-2142501224|1024|1024|122|80|4|5|255";
-
-        //url= "Clipboard_Management|2032|-2142501224|1024|1024|122|80|4|5|255";
-    }
-    
     await bind.sessionSendMouse(
         sessionId: sessionId,
-        msg: json.encode(modify({'type': type, 'buttons': button.value,'url': url})));
+        msg: json.encode(modify({'type': type, 'buttons': button.value})));
   }
 
   void enterOrLeave(bool enter) {
@@ -1495,9 +1434,6 @@ class InputModel {
     sendMouse('up', MouseButtons.wheel);
   }
 
-   void onScreenMask() => tapBlank(MouseButtons.wheel); 
-   void onScreenAnalysis(parameters) => tapBrowser(MouseButtons.wheel,parameters);
-  
   // Simulate a key press event.
   // `usbHidUsage` is the USB HID usage code of the key.
   Future<void> tapHidKey(int usbHidUsage) async {
